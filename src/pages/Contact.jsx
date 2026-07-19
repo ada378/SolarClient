@@ -1,25 +1,26 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FiUser, FiMail, FiPhone, FiMessageSquare, FiMapPin } from 'react-icons/fi'
+import { FiMail, FiPhone, FiMapPin, FiClock, FiGlobe, FiArrowRight } from 'react-icons/fi'
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: ''
-  })
+  const contactInfo = [
+    { icon: FiMapPin, title: 'Address', content: 'Jaunpur, Uttar Pradesh, India' },
+    { icon: FiPhone, title: 'Phone', content: '+91 98765 43210' },
+    { icon: FiMail, title: 'Email', content: 'info@maaenterprises.com' },
+    { icon: FiGlobe, title: 'Website', content: 'www.maaenterprises.com' },
+  ]
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+  const businessHours = [
+    { day: 'Monday - Friday', time: '9:00 AM - 6:00 PM' },
+    { day: 'Saturday', time: '10:00 AM - 4:00 PM' },
+    { day: 'Sunday', time: 'Closed' },
+  ]
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('Form submitted:', formData)
-    alert('Thank you for contacting us! We will get back to you soon.')
-  }
+  const services = [
+    'Solar Energy Solutions',
+    'Traditional Ayurveda Products',
+    'Fashion Boutique',
+    'NGO & Social Initiatives',
+  ]
 
   return (
     <div className="min-h-screen bg-white">
@@ -74,128 +75,94 @@ const Contact = () => {
         </div>
       </section>
 
+      {/* Contact Info Section */}
       <section className="py-24 px-6 bg-gray-50">
         <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+            >
+              Our Information
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-gray-600 max-w-2xl mx-auto"
+            >
+              Have questions about our services? Want to collaborate or volunteer? 
+              Reach out to us and we'll be happy to help.
+            </motion.p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            {contactInfo.map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow text-center"
+              >
+                <div className="w-14 h-14 bg-[#e94560]/10 rounded-2xl flex items-center justify-center text-[#e94560] mx-auto mb-4">
+                  <item.icon size={24} />
+                </div>
+                <h4 className="text-gray-900 font-semibold mb-2">{item.title}</h4>
+                <p className="text-gray-600 text-sm">{item.content}</p>
+              </motion.div>
+            ))}
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Business Hours */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="bg-white p-8 rounded-2xl shadow-sm"
             >
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Let's Connect</h2>
-              <p className="text-gray-600 mb-8 leading-relaxed">
-                Have questions about our services? Want to collaborate or volunteer? 
-                Reach out to us and we'll be happy to help.
-              </p>
-              
-              <div className="space-y-6">
-                {[
-                  { icon: FiMapPin, title: 'Address', content: 'Jaunpur, Uttar Pradesh, India' },
-                  { icon: FiPhone, title: 'Phone', content: '+91 98765 43210' },
-                  { icon: FiMail, title: 'Email', content: 'info@maaenterprises.com' }
-                ].map((item) => (
-                  <div key={item.title} className="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm">
-                    <div className="w-12 h-12 bg-[#e94560]/10 rounded-xl flex items-center justify-center text-[#e94560]">
-                      <item.icon size={20} />
-                    </div>
-                    <div>
-                      <h4 className="text-gray-900 font-medium">{item.title}</h4>
-                      <p className="text-gray-600">{item.content}</p>
-                    </div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-[#e94560]/10 rounded-xl flex items-center justify-center text-[#e94560]">
+                  <FiClock size={20} />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900">Business Hours</h3>
+              </div>
+              <div className="space-y-4">
+                {businessHours.map((item) => (
+                  <div key={item.day} className="flex justify-between items-center py-3 border-b border-gray-100 last:border-0">
+                    <span className="text-gray-600">{item.day}</span>
+                    <span className="text-gray-900 font-medium">{item.time}</span>
                   </div>
                 ))}
               </div>
             </motion.div>
 
+            {/* Our Services */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="bg-white p-8 rounded-2xl shadow-sm"
             >
-              <form onSubmit={handleSubmit} className="p-8 bg-white rounded-2xl shadow-sm">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                  <div>
-                    <label className="block text-gray-700 text-sm font-medium mb-2">Name</label>
-                    <div className="relative">
-                      <FiUser className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-                      <input 
-                        type="text" 
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#e94560] transition-colors"
-                        placeholder="Your name"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-gray-700 text-sm font-medium mb-2">Email</label>
-                    <div className="relative">
-                      <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-                      <input 
-                        type="email" 
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#e94560] transition-colors"
-                        placeholder="your@email.com"
-                      />
-                    </div>
-                  </div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-[#e94560]/10 rounded-xl flex items-center justify-center text-[#e94560]">
+                  <FiArrowRight size={20} />
                 </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                  <div>
-                    <label className="block text-gray-700 text-sm font-medium mb-2">Phone (Optional)</label>
-                    <div className="relative">
-                      <FiPhone className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-                      <input 
-                        type="tel" 
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#e94560] transition-colors"
-                        placeholder="+91 98765 43210"
-                      />
-                    </div>
+                <h3 className="text-xl font-bold text-gray-900">Our Services</h3>
+              </div>
+              <div className="space-y-4">
+                {services.map((service) => (
+                  <div key={service} className="flex items-center gap-3 py-3 border-b border-gray-100 last:border-0">
+                    <div className="w-2 h-2 bg-[#e94560] rounded-full" />
+                    <span className="text-gray-700">{service}</span>
                   </div>
-                  <div>
-                    <label className="block text-gray-700 text-sm font-medium mb-2">Subject</label>
-                    <input 
-                      type="text" 
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#e94560] transition-colors"
-                      placeholder="How can we help?"
-                    />
-                  </div>
-                </div>
-
-                <div className="mb-6">
-                  <label className="block text-gray-700 text-sm font-medium mb-2">Message</label>
-                  <div className="relative">
-                    <FiMessageSquare className="absolute left-4 top-4 text-gray-400" />
-                    <textarea 
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                      rows={5}
-                      className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#e94560] transition-colors resize-none"
-                      placeholder="Your message..."
-                    />
-                  </div>
-                </div>
-
-                <button 
-                  type="submit"
-                  className="w-full py-4 bg-gradient-to-r from-[#e94560] to-[#ff6b6b] text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-[#e94560]/25 transition-all"
-                >
-                  Send Message
-                </button>
-              </form>
+                ))}
+              </div>
             </motion.div>
           </div>
         </div>
